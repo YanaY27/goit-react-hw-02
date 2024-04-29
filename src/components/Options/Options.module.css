@@ -1,0 +1,28 @@
+.options{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.good:hover{
+    background-color:#32CD32;
+    color: white;
+}
+
+.neutral:hover{
+    background-color: aquamarine;
+    color: black;
+}
+
+.bad:hover{
+    
+    background-color: #FF0000;
+    color: white;
+}
+
+.reset:hover{
+    background-color: #4682B4;
+
+
+}
