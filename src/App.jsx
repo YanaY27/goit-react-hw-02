@@ -1,47 +1,66 @@
 import Description from "./components/Description/Description";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Options from "./components/Options/Options";
 import Feedback from "./components/Feedback/Feedback";
 import Notification from './components/Notification/Notification'
+import Statistics from './components/Statistics/Statistics'
 
 
 
 const App = () => {
-  const [feedbackTypes, setFeedbackTypes] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0
+  const initialState = { good: 0, neutral: 0, bad: 0 };
+  const [feedback, setFeedback] = useState(() => {
+    const savedFeedback = window.localStorage.getItem('feedback');
+    return savedFeedback ? JSON.parse(savedFeedback) : initialState;
   });
 
-  const updateFeedback = feedbackType => {
-    setFeedbackTypes(prevState => ({
-      ...prevState,
-      [feedbackType]: prevState[feedbackType] + 1
+  useEffect(() => {
+   
+      window.localStorage.setItem('feedback', JSON.stringify(feedback));
+    
+
+  
+  }, [feedback]);
+
+
+
+  const updateFeedback = (feedbackType) => {
+    setFeedback((prevFeedback) => ({
+      ...prevFeedback,
+      [feedbackType]: prevFeedback[feedbackType] + 1,
     }));
   };
 
   const resetFeedback = () => {
-    setFeedbackTypes({
-      good: 0,
-      neutral: 0,
-      bad: 0
-    });
+    setFeedback(initialState);
   };
-  const totalFeedback = feedbackTypes.good + feedbackTypes.neutral + feedbackTypes.bad;
+
+  
+
+
+  const { good, neutral, bad } = feedback;
+  const totalFeedback = good + neutral + bad;
+  const positiveFeedback = Math.round((good / totalFeedback) * 100);
 
   return (
     <div>
     <Description/>
-      <Options updateFeedback={updateFeedback} totalFeedback={totalFeedback} resetFeedback={resetFeedback} />
-      {totalFeedback > 0 ? (
-        <Feedback
-          good={feedbackTypes.good}
-          neutral={feedbackTypes.neutral}
-          bad={feedbackTypes.bad}
-          total={totalFeedback}
-        />
-      ) : (
+    <Options
+        updateFeedback={updateFeedback}
+        resetFeedback={resetFeedback}
+        totalFeedback={totalFeedback}
+      />
+    
+      {totalFeedback === 0 ? (
         <Notification/>
+      ) : (
+        <div>
+          <p>Good: {feedback.good}</p>
+          <p>Neutral: {feedback.neutral}</p>
+          <p>Bad: {feedback.bad}</p>
+          <p>Total: {totalFeedback}</p>
+          <p>Positive feedback: {positiveFeedback}%</p>
+        </div>
       )}
     </div>
   );
