@@ -7,6 +7,7 @@ import Statistics from './components/Statistics/Statistics'
 
 
 
+
 const App = () => {
   const initialState = { good: 0, neutral: 0, bad: 0 };
   const [feedback, setFeedback] = useState(() => {
@@ -54,13 +55,19 @@ const App = () => {
       {totalFeedback === 0 ? (
         <Notification/>
       ) : (
-        <div>
-          <p>Good: {feedback.good}</p>
-          <p>Neutral: {feedback.neutral}</p>
-          <p>Bad: {feedback.bad}</p>
-          <p>Total: {totalFeedback}</p>
-          <p>Positive feedback: {positiveFeedback}%</p>
-        </div>
+        <>
+        <Feedback
+        good={feedback.good}
+        neutral={feedback.neutral}
+        bad={feedback.bad}
+        total={totalFeedback}
+        positiveFeedback={positiveFeedback}
+      />
+      <Statistics
+      totalFeedback={totalFeedback}
+      positiveFeedback={positiveFeedback}
+    />
+    </>
       )}
     </div>
   );

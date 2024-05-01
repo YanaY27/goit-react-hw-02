@@ -3,8 +3,16 @@
     gap: 10px;
     justify-content: center;
     margin-top: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   
 }
 
+.button {
+    border-radius: 10px;
+    min-height: 30px;
+    background-color: antiquewhite;
+
+}
 .good:hover{
     background-color:#32CD32;
     color: white;
@@ -21,7 +29,8 @@
     color: white;
 }
 
-.reset:hover{
+
+.reset{
     background-color: #4682B4;
 
 
