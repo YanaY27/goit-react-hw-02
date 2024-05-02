@@ -14,3 +14,4 @@ const Options = ({updateFeedback, totalFeedback, resetFeedback}) => {
 }
 
 export default Options
+
